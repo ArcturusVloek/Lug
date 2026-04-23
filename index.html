@@ -3,240 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Exo+2:wght@300;400;700&family=Crimson+Pro:italic,wght@0,400;1,600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Exo+2:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:italic,wght@0,400;1,600&display=swap');
 
         :root {
-            --yang-color: #00f2ff; /* Ciano Elétrico */
-            --yin-color: #ff00ff;  /* Magenta/Rosa Fenda */
-            --bg-dark: #0a0a0c;
-            --text-main: #e0e0e0;
-            --accent-gold: #ffd700;
+            --color-uro: #00ffaa;    /* Verde Esmeralda (Jardim) */
+            --color-lyan: #00d9ff;   /* Ciano (Guerra) */
+            --color-fenda: #6600ff;  /* Roxo (Distorção) */
+            --color-blood: #ff0044;  /* Vermelho (Trauma) */
+            --bg: #050505;
         }
 
         body {
-            background-color: #111;
+            background: var(--bg);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            perspective: 1000px;
+            overflow: hidden;
+            font-family: 'Exo 2', sans-serif;
         }
 
-        /* Container da Carta com Efeito 3D */
-        .power-card {
-            width: 480px;
-            background: rgba(10, 10, 12, 0.95);
-            border: 2px solid transparent;
-            border-image: linear-gradient(45deg, var(--yang-color), var(--yin-color)) 1;
-            border-radius: 15px;
-            padding: 20px;
-            color: var(--text-main);
-            font-family: 'Exo 2', sans-serif;
+        /* Container Principal com Tilt 3D */
+        .card-fenda {
+            width: 520px;
+            background: linear-gradient(135deg, rgba(10,10,15,0.9), rgba(0,0,0,0.95));
+            border: 1px solid rgba(255,255,255,0.1);
             position: relative;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 255, 0.2);
-            overflow: hidden;
-            transition: transform 0.1s ease-out;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(102, 0, 255, 0.2);
+            transition: transform 0.1s;
             transform-style: preserve-3d;
         }
 
-        /* Efeito de Scanline/Glitch no fundo */
-        .power-card::before {
-            content: " ";
+        /* Efeito de Scanline e Ruído */
+        .card-fenda::after {
+            content: "";
             position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 3px 100%;
-            z-index: 10;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent 0, rgba(0,0,0,0.1) 2px, transparent 4px);
             pointer-events: none;
+            opacity: 0.5;
         }
 
-        /* Título com Animação Glitch */
+        /* Cabeçalho com Glitch */
         .header {
+            border-bottom: 3px double var(--color-fenda);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
         }
 
         .title {
             font-family: 'Cinzel Decorative', serif;
-            font-size: 24px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin: 0;
-            position: relative;
+            font-size: 28px;
             color: #fff;
-            text-shadow: 2px 0 var(--yang-color), -2px 0 var(--yin-color);
-            animation: glitch 3s infinite;
+            text-shadow: 3px 0 var(--color-lyan), -3px 0 var(--color-blood);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+            margin: 0;
         }
 
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            2% { transform: translate(-2px, 2px); }
-            4% { transform: translate(2px, -2px); }
-            6% { transform: translate(0); }
+        @keyframes glitch-anim {
+            0% { transform: skew(0deg); }
+            5% { transform: skew(5deg); text-shadow: 4px 0 var(--color-blood); }
+            10% { transform: skew(-5deg); text-shadow: -4px 0 var(--color-uro); }
+            15% { transform: skew(0deg); }
         }
 
-        /* Grid de Informações Rápidas */
-        .stats-grid {
+        /* Seções de Atributos */
+        .grid-tech {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            font-size: 0.85em;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 10px;
-            border-radius: 8px;
             margin-bottom: 20px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .stat-item b { color: var(--accent-gold); }
+        .tech-box {
+            background: rgba(255,255,255,0.05);
+            padding: 5px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
 
-        /* Estilo das Seções Yin e Yang */
-        .mode-container {
+        /* Blocos de Modo */
+        .modo-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .mode-box {
+        .modo {
             padding: 15px;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.4);
-            border-left: 4px solid;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.3);
+            border-left: 5px solid transparent;
             position: relative;
         }
 
-        .yang-box { border-color: var(--yang-color); box-shadow: -5px 0 15px rgba(0, 242, 255, 0.1); }
-        .yin-box { border-color: var(--yin-color); box-shadow: -5px 0 15px rgba(255, 0, 255, 0.1); }
+        .yang { border-color: var(--color-lyan); }
+        .yin { border-color: var(--color-uro); }
 
-        .mode-title {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 8px;
+        .modo h2 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
         }
 
-        .flavor-text {
+        .flavor {
             font-family: 'Crimson Pro', serif;
             font-style: italic;
-            font-size: 0.95em;
-            color: #aaa;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .rule-list {
-            margin: 0;
-            padding-left: 18px;
-            font-size: 0.9em;
+            color: #888;
+            font-size: 14px;
             line-height: 1.4;
+            display: block;
+            margin-bottom: 10px;
         }
 
-        .rule-list li { margin-bottom: 5px; }
-
-        /* Destaque para Status/Limitações */
-        .tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            color: var(--accent-gold);
-            font-weight: bold;
+        .rules {
+            font-size: 13px;
+            color: #ccc;
+            list-style: none;
+            padding: 0;
         }
 
-        .recoil { color: #ff4d4d; font-weight: bold; }
-        .consent { color: #70e000; font-weight: bold; }
+        .rules li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
 
-        /* Tabela de Custo de PE */
+        .rules li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--color-fenda);
+        }
+
+        /* Tabela de Custo */
         .cost-table {
             width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-            font-size: 0.8em;
-            color: #888;
+            margin-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 12px;
+            color: #666;
         }
 
-        .cost-table td { padding: 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .total-cost { color: #fff; font-weight: bold; text-align: right; font-size: 1.2em; padding-top: 10px; }
+        .cost-table tr td { padding: 5px 0; }
+        .total-pe {
+            font-size: 18px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--color-fenda);
+        }
 
     </style>
 </head>
 <body>
 
-<div class="power-card" id="card">
+<div class="card-fenda" id="card">
     <div class="header">
         <h1 class="title">Dualidade de Hanz</h1>
-        <div style="font-size: 0.9em; color: #888; margin-top: 5px;">👤 Usuário: Lug (Anjo) | ⭐ NP 1</div>
+        <div style="color: var(--color-fenda); font-weight: bold; font-size: 12px; margin-top: 5px;">
+            SISTEMA DE SELAMENTO E FLUXO VITAL
+        </div>
     </div>
 
-    <div class="stats-grid">
-        <div class="stat-item"><b>MP:</b> 5</div>
-        <div class="stat-item"><b>PE:</b> 15</div>
-        <div class="stat-item"><b>Atrib:</b> SAB [5]</div>
-        <div class="stat-item"><b>Cast:</b> Padrão</div>
-        <div class="stat-item"><b>Alvo:</b> Toque</div>
-        <div class="stat-item"><b>Cat:</b> Ofen/Sup</div>
+    <div class="grid-tech">
+        <div class="tech-box"><b>MP</b><br>5</div>
+        <div class="tech-box"><b>PE</b><br>15</div>
+        <div class="tech-box"><b>CD</b><br>12 + SAB</div>
+        <div class="tech-box"><b>NP</b><br>1</div>
     </div>
 
-    <div class="mode-container">
+    <div class="modo-wrapper">
         <!-- MODO YANG -->
-        <div class="mode-box yang-box">
-            <div class="mode-title" style="color: var(--yang-color);">
-                ⚔️ MODO YANG: O SELO DE LYAN
-            </div>
-            <span class="flavor-text">"A herança de guerra de Lyan Hanz, refinada pela análise de fendas." [3, 6]</span>
-            <ul class="rule-list">
-                <li><span class="tag">ANÁLISE</span> Teste <b>SAB (CD 12)</b> sorteia atributo alvo (1d6) [7].</li>
-                <li><span class="tag">TEMPORAL</span> Cada acerto reduz o atributo em <b>-1</b> [8].</li>
-                <li><span class="tag">SELAMENTO</span> Se o atributo chegar a 1, alvo fica <b>Paralisado</b> [9].</li>
-                <li><span class="recoil">3ª LEI DE NEWTON:</span> Erros causam <b>5% do seu HP Máx</b> em recuo.</li>
+        <div class="modo yang">
+            <h2 style="color: var(--color-lyan);">⚔️ O SELO DO CARRASCO <span>[YANG]</span></h2>
+            <span class="flavor">
+                "O jardim de Uro fora transformado em um cemitério... as rosas murcharam até morrer." [1, 13]
+            </span>
+            <ul class="rules">
+                <li><b>Ruptura Temporal:</b> Cada acerto drena a vitalidade do alvo, reduzindo um atributo sorteado em -1 (Núcleo Temporal) [7].</li>
+                <li><b>Análise de Ruína:</b> Lug detecta fraquezas invisíveis, ignorando RD em objetos e armaduras [6, 14].</li>
+                <li><b>Recuo de Newton:</b> Erros no fluxo causam <b>5% do HP Máx</b> em dano interno por rebote cinético [9].</li>
             </ul>
         </div>
 
         <!-- MODO YIN -->
-        <div class="mode-box yin-box">
-            <div class="mode-title" style="color: var(--yin-color);">
-                ✿ MODO YIN: O RESPIRO DE URO
-            </div>
-            <span class="flavor-text">"A paz das estufas de Uro Tomiawa, onde a vida flui em harmonia." [3, 10]</span>
-            <ul class="rule-list">
-                <li><span class="consent">VÍNCULO CONSENSUAL:</span> Requer aceitação voluntária do aliado.</li>
-                <li><span class="tag">INVERSÃO</span> Converte <b>HP em MP</b> (proporção 1:1) entre usuários [11].</li>
-                <li><span class="tag">FLUXO</span> Redistribui pontos de atributos entre Lug e o alvo.</li>
-                <li><span class="tag">CALMARIA</span> Pós-uso: <b>10 cenas</b> sem habilidades ofensivas [9].</li>
+        <div class="modo yin">
+            <h2 style="color: var(--color-uro);">✿ O RESPIRO DA ESTUFA <span>[YIN]</span></h2>
+            <span class="flavor">
+                "Seja forte por mim... sua voz era como a de um verdadeiro anjo." [2]
+            </span>
+            <ul class="rules">
+                <li><b>Vínculo Consensual:</b> Requer aceitação voluntária do aliado. A alma deve estar aberta [10].</li>
+                <li><b>Inversão Vital:</b> Permite converter o próprio HP em MP para o aliado (proporção 1:1) [8].</li>
+                <li><b>Paz Forçada:</b> O uso drena a agressividade de Lug, impedindo-o de atacar por 10 cenas pós-uso [12].</li>
             </ul>
         </div>
     </div>
 
     <table class="cost-table">
-        <tr><td>Núcleos (Dano + Buff + Transfer)</td><td align="right">9 PE</td></tr>
-        <tr><td>Descritores (Temporal + Inversão + Análise)</td><td align="right">28 PE</td></tr>
-        <tr><td>Duração & Status (10 turnos + Vulnerável)</td><td align="right">25 PE</td></tr>
-        <tr><td>Limitações (Preparação, Custo HP, Consentimento, Exclusão)</td><td align="right">-47 PE</td></tr>
-        <tr><td colspan="2" class="total-cost">CUSTO FINAL: 15 PE</td></tr>
+        <tr>
+            <td>Estrutura: Ofensivo/Suporte/Temporal/Inversão</td>
+            <td align="right" class="total-pe">PE: 15</td>
+        </tr>
     </table>
 </div>
 
 <script>
     const card = document.getElementById('card');
-    const motionMax = 15; // Máximo de rotação em graus
-
     document.addEventListener('mousemove', (e) => {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-
-        const rotateX = (y - 0.5) * motionMax * -1;
-        const rotateY = (x - 0.5) * motionMax;
-
-        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    document.addEventListener('mouseleave', () => {
-        card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        let x = (window.innerWidth / 2 - e.pageX) / 20;
+        let y = (window.innerHeight / 2 - e.pageY) / 20;
+        card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
     });
 </script>
 
