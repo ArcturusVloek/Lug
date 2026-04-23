@@ -2,190 +2,230 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <title>Ficha de Poder - Lug</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:italic,wght@0,400;1,600&family=Exo+2:wght@300;400;700&family=Cinzel:wght@700&display=swap');
-
-        :root {
-            --black: #000000;
-            --white: #ffffff;
-            --grey: #f0f0f0;
-            --border: #333333;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Crimson+Pro:italic,wght@0,400;1,600&family=Exo+2:wght@300;400;700&display=swap');
 
         body {
-            background-color: #f5f5f5;
-            font-family: 'Exo 2', sans-serif;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
+            margin: 0;
+            font-family: 'Exo 2', sans-serif;
         }
 
-        .card {
-            width: 550px;
-            background: var(--white);
-            border: 4px solid var(--black);
-            padding: 0;
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+        .container-power {
+            width: 580px;
+            background: #ffffff;
+            border: 5px solid #000000;
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.1);
+            position: relative;
         }
 
-        /* CABEÇALHO */
-        .header {
-            background: var(--black);
-            color: var(--white);
-            padding: 20px;
+        /* CABEÇALHO ESTILO ACADEMIA */
+        .header-box {
+            background: #000000;
+            color: #ffffff;
+            padding: 25px;
             text-align: center;
+            border-bottom: 2px solid #000000;
         }
 
-        .header h1 {
+        .header-box h1 {
             font-family: 'Cinzel', serif;
             margin: 0;
-            font-size: 26px;
-            letter-spacing: 2px;
+            font-size: 30px;
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
 
-        .header p {
-            margin: 5px 0 0;
-            font-size: 12px;
-            letter-spacing: 1px;
+        .header-box p {
+            margin: 10px 0 0;
+            font-size: 11px;
+            letter-spacing: 2px;
             opacity: 0.8;
+            font-weight: 300;
         }
 
-        /* GRID DE ATRIBUTOS */
-        .stats-bar {
+        /* TABELA DE ATRIBUTOS RÁPIDOS */
+        .quick-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            border-bottom: 2px solid var(--black);
-            background: var(--white);
+            border-bottom: 3px solid #000000;
+            background: #ffffff;
         }
 
-        .stat-item {
-            padding: 10px;
+        .stat-node {
+            padding: 12px;
             text-align: center;
-            border-right: 1px solid var(--black);
-            font-size: 13px;
+            border-right: 1px solid #000000;
+            font-weight: 700;
+            font-size: 14px;
         }
 
-        .stat-item:last-child { border-right: none; }
-        .stat-item b { display: block; font-size: 10px; color: #666; }
+        .stat-node:last-child { border-right: none; }
+        .stat-node small { display: block; font-size: 9px; color: #666; text-transform: uppercase; }
 
-        /* SEÇÃO YANG (PRETO) */
-        .section-yang {
-            background: var(--black);
-            color: var(--white);
-            padding: 25px;
-            border-bottom: 2px solid var(--white);
+        /* SEÇÃO YANG (CONCENTRADA NA GUERRA) */
+        .yang-section {
+            background: #000000;
+            color: #ffffff;
+            padding: 30px;
+            border-bottom: 2px solid #ffffff;
         }
 
-        /* SEÇÃO YIN (BRANCO) */
-        .section-yin {
-            background: var(--white);
-            color: var(--black);
-            padding: 25px;
+        /* SEÇÃO YIN (CONCENTRADA NA PAZ) */
+        .yin-section {
+            background: #ffffff;
+            color: #000000;
+            padding: 30px;
         }
 
-        .mode-title {
+        .title-mode {
             font-family: 'Cinzel', serif;
-            font-size: 18px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid;
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid;
             display: inline-block;
-            padding-bottom: 2px;
+            padding-bottom: 5px;
         }
 
-        .narrative {
+        .narrative-text {
             font-family: 'Crimson Pro', serif;
             font-style: italic;
-            font-size: 15px;
-            line-height: 1.5;
-            margin-bottom: 15px;
-            opacity: 0.9;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: inherit;
+            opacity: 0.85;
         }
 
-        .rules-title {
-            font-weight: bold;
-            text-transform: uppercase;
+        .mechanics-label {
+            font-weight: 800;
             font-size: 11px;
+            text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: block;
+            text-decoration: underline;
         }
 
         .rules-list {
             margin: 0;
             padding-left: 20px;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.6;
         }
 
-        .rules-list li { margin-bottom: 8px; }
+        .rules-list li { margin-bottom: 10px; }
 
-        /* RODAPÉ TÉCNICO */
-        .footer-pe {
-            padding: 15px 25px;
-            background: var(--grey);
-            border-top: 2px solid var(--black);
-            font-size: 11px;
-            color: #444;
+        /* BOX DE RESTRIÇÃO EM DESTAQUE */
+        .restriction-alert {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px dashed #ff0000;
+            background: rgba(255, 0, 0, 0.05);
+            font-size: 13px;
         }
 
-        .footer-pe table { width: 100%; border-collapse: collapse; }
-        .footer-pe td { padding: 3px 0; }
-        .total-row { color: var(--black); font-weight: bold; font-size: 14px; border-top: 1px solid #ccc; }
+        .yang-section .restriction-alert {
+            border-color: #ffffff;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .alert-title {
+            font-weight: bold;
+            color: #ff4444;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .yang-section .alert-title { color: #ffffff; }
+
+        /* RODAPÉ TÉCNICO DE PE */
+        .cost-footer {
+            padding: 20px 30px;
+            background: #f9f9f9;
+            border-top: 3px solid #000000;
+        }
+
+        .cost-footer table { width: 100%; font-size: 11px; color: #555; }
+        .cost-footer td { padding: 4px 0; }
+        .total-pe-row { 
+            font-size: 16px; 
+            color: #000; 
+            font-weight: 900; 
+            border-top: 2px solid #000;
+            padding-top: 10px !important;
+        }
 
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="header">
+<div class="container-power">
+    <div class="header-box">
         <h1>Dualidade de Hanz</h1>
-        <p>Técnica de Selamento e Transmutação Vital [NP 1]</p>
+        <p>PROTOCOLOS DE COMBATE E SUPORTE • NP 1 • PROGRAMA ÊXODOS</p>
     </div>
 
-    <div class="stats-bar">
-        <div class="stat-item"><b>CUSTO MP</b> 5 MP</div>
-        <div class="stat-item"><b>TOTAL PE</b> 15 PE</div>
-        <div class="stat-item"><b>ATRIBUTO</b> SAB</div>
-        <div class="stat-item"><b>VELOC.</b> PADRÃO</div>
+    <div class="quick-stats">
+        <div class="stat-node"><small>Custo MP</small>5 MP</div>
+        <div class="stat-node"><small>Total PE</small>15 PE</div>
+        <div class="stat-node"><small>Atributo</small>SAB</div>
+        <div class="stat-node"><small>Alcance</small>Toque</div>
     </div>
 
     <!-- MODO YANG -->
-    <div class="section-yang">
-        <div class="mode-title">● MODO YANG: O SELO DE LYAN</div>
-        <div class="narrative">
-            "A herança de Lyan Hanz não era amor, era o som de vespas e o definhar das rosas. Onde seu pai trazia a destruição de exércitos, Lug traz o silêncio da fenda. Cada golpe é um ponto de pressão que murcha a carne, transformando a vitalidade do inimigo no mesmo pó cinzento que consumiu o jardim de Uro."
+    <div class="yang-section">
+        <div class="title-mode">● MODO YANG: O SELO DE LYAN</div>
+        <div class="narrative-text">
+            "Não foi um trovão que marcou o fim da estufa, mas um som úmido e o silêncio das vespas. As rosas de Uro murcharam até o pó, e agora esse mesmo pó corre em minhas mãos. O selo de meu pai não é uma arma, é a sentença de que tudo o que floresce um dia deve secar." [4, 5]
         </div>
-        <span class="rules-title">Protocolo de Combate:</span>
+        
+        <span class="mechanics-label">Mecânicas de Ruína:</span>
         <ul class="rules-list">
-            <li><b>Análise de Ruína:</b> Teste de SAB (CD 12) sorteia um atributo (1d6). Cada acerto reduz esse atributo em -1 [Temporal].</li>
-            <li><b>Ponto de Ruptura:</b> Se o atributo atingir 1, o alvo entra em colapso (Paralisia por 1d4 turnos).</li>
-            <li><b>3ª Lei de Newton:</b> Falhas ou impactos contra defesas intransponíveis causam 5% de dano do HP Máx ao próprio Lug.</li>
+            <li><b>Análise de Fenda:</b> Teste de SAB (CD 12) identifica o fluxo vital. Escolha um atributo (1d6) para sofrer a erosão [6, 7].</li>
+            <li><b>Selo Temporal:</b> Cada acerto bem-sucedido reduz o atributo alvo em **-1**. Se o valor chegar a 1, o inimigo é paralisado por 1d4 turnos [6].</li>
         </ul>
+
+        <div class="restriction-alert">
+            <span class="alert-title">⚠️ RESTRIÇÃO: 3ª LEI DE NEWTON</span>
+            A força de Lyan exige um preço. Se o ataque errar ou falhar em perfurar o alvo, Lug sofre <b>5% de seu HP Máximo</b> em dano cinético interno [8].
+        </div>
     </div>
 
     <!-- MODO YIN -->
-    <div class="section-yin">
-        <div class="mode-title">○ MODO YIN: O RESPIRO DE URO</div>
-        <div class="narrative">
-            "Uro acreditava em estufas que protegiam o que era puro da poluição do mundo. Sob a bênção de Gluu, Lug estende a mão para os que ainda restam. Não é um comando, é um pedido de harmonia. O sangue de Lug flui para alimentar a alma de seus aliados, trocando a força pelo alento."
+    <div class="yin-section">
+        <div class="title-mode">○ MODO YIN: O RESPIRO DE URO</div>
+        <div class="narrative-text">
+            "A estufa era para nos livrar da poluição do mundo... inocente. Gluu sorria enquanto o mundo morria, e em suas últimas palavras eu ouvi a voz de um anjo. Eu não imponho a vida; eu peço permissão para que ela flua, um sacrifício pela promessa de ser forte por quem se foi." [3, 9]
         </div>
-        <span class="rules-title">Protocolo de Suporte:</span>
+
+        <span class="mechanics-label">Mecânicas de Harmonia:</span>
         <ul class="rules-list">
-            <li><b>Vínculo Consensual:</b> O aliado deve aceitar voluntariamente o toque. Não funciona sob coerção ou inconsciência total.</li>
-            <li><b>Inversão Vital:</b> Lug sacrifica HP para restaurar MP do aliado (1:1) ou redistribui pontos de atributos entre si e o alvo.</li>
-            <li><b>Calmaria Pós-Guerra:</b> O uso drena a vontade de lutar. Lug fica incapaz de usar o Modo Yang ou atacar por 10 cenas.</li>
+            <li><b>Inversão Vital:</b> Permite converter o próprio HP em MP para um aliado (proporção 1:1) através do toque [10].</li>
+            <li><b>Redistribuição de Fluxo:</b> Lug pode mover pontos de seus próprios atributos para um aliado voluntário por 10 turnos [11].</li>
         </ul>
+
+        <div class="restriction-alert">
+            <span class="alert-title" style="color: #000;">⚠️ RESTRIÇÃO: VÍNCULO CONSENSUAL</span>
+            Este poder exige harmonia. O alvo deve aceitar o toque voluntariamente. Após o uso, Lug fica em exaustão e não pode atacar por 10 cenas [8].
+        </div>
     </div>
 
-    <!-- CUSTOS PE -->
-    <div class="footer-pe">
+    <!-- CUSTOS TÉCNICOS -->
+    <div class="cost-footer">
         <table>
-            <tr><td>Núcleos (Cinético, Buff, Transferência)</td><td align="right">9 PE</td></tr>
-            <tr><td>Descritores (Temporal, Inversão, Análise)</td><td align="right">28 PE</td></tr>
-            <tr><td>Duração & Status (10 turnos + Vulnerável)</td><td align="right">25 PE</td></tr>
-            <tr><td>Limitações (Consentimento, Exaustão, Custo HP, Preparação)</td><td align="right">-47 PE</td></tr>
-            <tr class="total-cost"><td colspan="2" class="total-row" align="right">CUSTO FINAL: 15 PE</td></tr>
+            <tr><td>Núcleos: Cinético (1), Buff (5), Transferência (3)</td><td align="right">9 PE</td></tr>
+            <tr><td>Descritores: Temporal (10), Inversão (15), Análise (3)</td><td align="right">28 PE</td></tr>
+            <tr><td>Duração & Status: 10 Turnos (20), Vulnerável (5)</td><td align="right">25 PE</td></tr>
+            <tr><td>Limitações: Consentimento, Exaustão, Custo HP, Preparação, Uso Único</td><td align="right">-47 PE</td></tr>
+            <tr class="total-pe-row">
+                <td>CUSTO TOTAL DE PONTOS DE ÊXODO (PE)</td>
+                <td align="right">15 PE</td>
+            </tr>
         </table>
     </div>
 </div>
